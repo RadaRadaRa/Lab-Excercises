@@ -24,5 +24,6 @@ def practice(a):
     if a.isalpha():
         return(a[:5].upper())
     else:
-        print("Needs to contains all alphabetical characters")
+        print("Needs to contains only alphabetical characters")
 practice("yourmom")
+practice("y0ur m0m")

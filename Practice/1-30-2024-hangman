@@ -1,0 +1,127 @@
+import random
+import turtle
+play="Y"
+while play =="Y":
+#draws the stage/noose
+    turtle=turtle.Turtle()
+    turtle.penup()
+    turtle.goto(0,175)
+    turtle.pendown()
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.right(90)
+    turtle.forward(100)
+    turtle.right(90)
+    turtle.forward(300)
+    turtle.right(90)
+    turtle.forward(150)
+    #categories that the user can choose from to determine theme of the word
+    colors = ["green", "purple", "magenta", "aquamarine", "crimson", "orange", "silver","red"]
+    animals = ["tiger", "antelope", "panda", "gorilla", "armadillo", "cheetah", "panther","axolotl","dodo","wolverine","dove","anaconda"]
+    fruit = ["tomato", "strawberry", "mango", "watermelon", "pineapple", "durian", "tangerine","dragonfruit","blackberry"]
+    furniture = ["couch", "bedframe", "ottoman", "table", "chair", "chandelier", "dresser"]
+    random_list = ["stupid", "wednesday", "princess", "python", "binghamton", "fairytale", "hairy"]
+
+    category = input("Choose a word category for hangman: colors, animals, fruit, furniture. ")
+    category=category.lower() #lowers the input because we anticipate that the user may capitalize and then wouldn't satisfy the if conditional. 
+    if category == "colors" or category =="colors":
+        word_bank = colors
+    elif category == "animals" or category == "animal":
+        word_bank = animals
+    elif category == "fruit" or category == "fruits":
+        word_bank = fruit
+    elif category == "furniture":
+        word_bank = furniture
+    else:
+        print("You did not enter a valid category, so we will give you a random word")
+        word_bank = random_list
+
+    word = random.choice(word_bank)#randomly chooses a word from the category the user has choosen
+    display = len(word)*"-" #tells user how long the word is
+    print(display)
+    incorrect_letters = []
+    total_guesses = 9
+    print("You have 9 incorrect guesses until the man dies.")
+
+    while total_guesses > 0:
+        if "-" in display:
+         letter_guess = input("Please enter a letter: ")
+         letter_guess=letter_guess.lower()
+        if len(letter_guess)!=1:
+            print("That's not one letter! ")
+        elif letter_guess in display or letter_guess in incorrect_letters:
+            print("You have already guessed this letter.")
+        elif letter_guess in word:
+            for i in range(len(word)):
+                if word[i] == letter_guess:
+                    display = display[:i] + letter_guess + display[i +1:] #replaces the corresponding dash with the correct letter so that the user can see where in the word is the correct letter.
+        print(f"{letter_guess} is in the word")
+        print(display)
+        elif letter_guess not in word:
+        print(f"{letter_guess} is not in the word")
+        incorrect_letters.append(letter_guess)
+        print(f"The incorrect letters are {incorrect_letters}")
+        total_guesses -= 1
+        print(f"You have {total_guesses} incorrect guesses until the man dies.")
+        if total_guesses==8: #draws head
+            turtle.penup()
+            turtle.goto(0,175)
+            turtle.pendown()
+            turtle.circle(50)
+        elif total_guesses==7: #draws body
+            turtle.penup()
+            turtle.goto(0,75)
+            turtle.pendown()
+            turtle.left(90)
+            turtle.forward(100)
+        elif total_guesses==6: #draws right arm
+            turtle.penup()
+            turtle.goto(0,50)
+            turtle.pendown()
+            turtle.right(45)
+            turtle.forward(50)
+        elif total_guesses==5: #draws left arm
+            turtle.penup()
+            turtle.goto(0,50)
+            turtle.pendown()
+            turtle.left(90)
+            turtle.forward(50)
+        elif total_guesses==4: #draws left leg
+            turtle.penup()
+            turtle.goto(0,-25)
+            turtle.pendown()
+            turtle.forward(50)
+        elif total_guesses==3: #draws right leg
+            turtle.penup()
+            turtle.goto(0,-25)
+            turtle.pendown()
+            turtle.right(90)
+            turtle.forward(50)
+        elif total_guesses==2: #draws eye 1
+            turtle.penup()
+            turtle.home()
+            turtle.goto(10,125)
+            turtle.pendown()
+            turtle.circle(5)
+        elif total_guesses==1: #draws eye 2
+            turtle.penup()
+            turtle.home()
+            turtle.goto(-10,125)
+            turtle.pendown()
+            turtle.circle(5)
+        elif total_guesses==0: #draws frown
+            turtle.penup()
+            turtle.home()
+            turtle.goto(10,90)
+            turtle.left(90)
+            turtle.pendown()
+            turtle.circle(15,180)
+            
+    else:
+        print("You have guessed the word, and the man lives!")
+        play=input("Play again? (Y/N)")
+        #break #ends game 
+
+    if total_guesses == 0: #runs out of tries
+        print("The man has died because of you! The word was " + word+".")
+    play=input("Play Again? (Y/N)")

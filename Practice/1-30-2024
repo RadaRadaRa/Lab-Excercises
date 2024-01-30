@@ -1,0 +1,16 @@
+import random
+filename="sowpods.txt"
+f=open(filename,"r",encoding="utf8")
+words=f.readlines()
+
+def word_generator():
+    file=filename
+    f=open(file,"r",encoding="utf8")
+    words=f.readlines()
+    f.close()
+
+    print(random.choice(words).strip())
+
+word_generator()
+
+f.close
