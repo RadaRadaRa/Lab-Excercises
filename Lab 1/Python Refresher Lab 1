@@ -1,0 +1,262 @@
+#1)
+list1 = ["apple", "rice", "gargoyle", "pandas", "sheep", "raptor"]
+def longest_word_in_list_fun(lista):
+    length_of_words_in_list_list=[]
+    for word in lista:
+        length_of_words_in_list_list.append(len(word))
+    print(lista[length_of_words_in_list_list.index(max(length_of_words_in_list_list))])
+longest_word_in_list_fun(list1)
+
+#2)
+def shortest_word_in_ranlist_fun():
+    length_of_words_in_list_list=[]
+    ten_words_list=[]
+    import random
+    filename="sowpods.txt"
+    f=open(filename,"r",encoding="utf8")
+    words=f.readlines() 
+    counter=10
+    randworddict={}
+    while counter >=0:
+        ten_words_list.append(random.choice(words).strip())
+        counter-=1
+    for word in ten_words_list:
+        length_of_words_in_list_list.append(len(word))
+        randworddict[word]=len(word)
+    print(ten_words_list[length_of_words_in_list_list.index(min(length_of_words_in_list_list))])
+    print(randworddict)
+shortest_word_in_ranlist_fun()
+
+#3)
+def evenoroddname():
+    name=input("Type in your full name(first, middle, last)").strip()
+    name=name.replace(" ","")
+    print(len(name)%2==0)
+    return(len(name)%2==0)
+evenoroddname()
+
+#4)
+#when brainstorming how to create a class that manages a student's school records, I thought about what functions,
+#that I as a student, would care about. I quickly figured out that my gpa and whether I'm on the dean's list is pretty important
+#I created a function that would add classes and their corresponding letter grades into a dictionary. Afterwards
+#I created a function that would turn the letter grades into their equivalent numerical grade. 
+# Then it would calculate the gpa based on all the grades in the dictionary. 
+# Afterwards I created a function that would check if the gpa was above the cut off for dean's list
+#and return TRUE or FALSE accordingly. 
+class student_school_record:
+    def __init__(self, name, major):
+        self.name=name
+        self.grades={}
+        self.major=major
+    def add_grade(self, classname, lettergrade):
+        lettergrade=lettergrade.lower()
+        checklist=["a","a-","b+","b","b-","c+","c","c-","d","f"]
+        if lettergrade in checklist:
+            self.grades["classname"]=lettergrade
+        else:
+            print("Function only takes standard alphabetic grades (eg. a, a-, b+, etc).")
+    def gpa(self):
+        self.gpa=0
+        from statistics import mean
+        grade_point_equivalent=[]
+        for x in self.grades.values():
+            if x=="a":
+                grade_point_equivalent.append(4)
+            elif x=="a-":
+                grade_point_equivalent.append(3.7)
+            elif x=="b+":
+                grade_point_equivalent.append(3.3)
+            elif x=="b":
+                grade_point_equivalent.append(3.0)
+            elif x=="b-":
+                grade_point_equivalent.append(2.7)
+            elif x=="c+":
+                grade_point_equivalent.append(2.3)
+            elif x=="c":
+                grade_point_equivalent.append(2.0)
+            elif x=="c-":
+                grade_point_equivalent.append(1.7)
+            elif x=="d":
+                grade_point_equivalent.append(1.0)
+            elif x=="f":
+                grade_point_equivalent.append(0.0)
+        self.gpa=(mean(grade_point_equivalent))
+        print(self.gpa)
+    def ondeanlist(self):
+        self.gpa=0
+        from statistics import mean
+        grade_point_equivalent=[]
+        for x in self.grades.values():
+            if x=="a":
+                grade_point_equivalent.append(4)
+            elif x=="a-":
+                grade_point_equivalent.append(3.7)
+            elif x=="b+":
+                grade_point_equivalent.append(3.3)
+            elif x=="b":
+                grade_point_equivalent.append(3.0)
+            elif x=="b-":
+                grade_point_equivalent.append(2.7)
+            elif x=="c+":
+                grade_point_equivalent.append(2.3)
+            elif x=="c":
+                grade_point_equivalent.append(2.0)
+            elif x=="c-":
+                grade_point_equivalent.append(1.7)
+            elif x=="d":
+                grade_point_equivalent.append(1.0)
+            elif x=="f":
+                grade_point_equivalent.append(0.0)
+        self.gpa=(mean(grade_point_equivalent))
+        return (self.gpa>=3.5)
+    
+s1=student_school_record("kevin zhang", "actuarial sciences")
+s1.add_grade("harp 151","a")
+s1.add_grade("harp 150", "a")
+s1.gpa()
+s1.ondeanlist()
+
+#5)
+import random
+import turtle
+play="y"
+while play =="y" or play=="yes": #This allows the game to be run again or exit the game if the player chooses to do so. 
+#draws the stage/noose
+    turtle1=turtle.Turtle()
+    turtle1.penup()
+    turtle1.goto(0,175)
+    turtle1.pendown()
+    turtle1.left(90)
+    turtle1.forward(25)
+    turtle1.right(90)
+    turtle1.forward(100)
+    turtle1.right(90)
+    turtle1.forward(300)
+    turtle1.right(90)
+    turtle1.forward(150)
+    #categories that the user can choose from to determine theme of the word
+    colors = ["green", "purple", "magenta", "aquamarine", "crimson", "orange", "silver","red"]
+    animals = ["tiger", "antelope", "panda", "gorilla", "armadillo", "cheetah", "panther","axolotl","dodo","wolverine","dove","anaconda"]
+    fruit = ["tomato", "strawberry", "mango", "watermelon", "pineapple", "durian", "tangerine","dragonfruit","blackberry"]
+    furniture = ["couch", "bedframe", "ottoman", "table", "chair", "chandelier", "dresser"]
+    random_list = ["stupid", "wednesday", "princess", "python", "binghamton", "fairytale", "hairy"]
+
+    category = input("Choose a word category for hangman: colors, animals, fruit, furniture. ")
+    category=category.lower() #lowers the input because we anticipate that the user may capitalize and then wouldn't satisfy the if conditional. 
+    if category == "colors" or category =="colors":
+        word_bank = colors
+    elif category == "animals" or category == "animal":
+        word_bank = animals
+    elif category == "fruit" or category == "fruits":
+        word_bank = fruit
+    elif category == "furniture":
+        word_bank = furniture
+    else:
+        print("You did not enter a valid category, so we will give you a random word")
+        word_bank = random_list
+
+    word = random.choice(word_bank)#randomly chooses a word from the category the user has choosen
+    display = len(word)*"-" #tells user how long the word is
+    print(display)
+    incorrect_letters = []
+    total_guesses = 9
+    print("You have 9 incorrect guesses until the man dies.")
+
+    while total_guesses > 0:
+        if "-" in display:
+            letter_guess = input("Please enter a letter: ")
+            letter_guess=letter_guess.lower()
+            if len(letter_guess)!=1:
+                print("That's not one letter! ")
+            elif letter_guess in display or letter_guess in incorrect_letters:
+                print("You have already guessed this letter.")
+            elif letter_guess in word:
+                for i in range(len(word)):
+                    if word[i] == letter_guess:
+                        display = display[:i] + letter_guess + display[i +1:] #replaces the corresponding dash with the correct letter so that the user can see where in the word is the correct letter.
+                        print(f"{letter_guess} is in the word")
+                        print(display)
+            elif letter_guess not in word:
+                print(f"{letter_guess} is not in the word")
+                incorrect_letters.append(letter_guess)
+                print(f"The incorrect letters are {incorrect_letters}")
+                total_guesses -= 1
+                print(f"You have {total_guesses} incorrect guesses until the man dies.")
+                if total_guesses==8: #draws head
+                    turtle1.penup()
+                    turtle1.goto(0,175)
+                    turtle1.pendown()
+                    turtle1.circle(50)
+                elif total_guesses==7: #draws body
+                    turtle1.penup()
+                    turtle1.goto(0,75)
+                    turtle1.pendown()
+                    turtle1.left(90)
+                    turtle1.forward(100)
+                elif total_guesses==6: #draws right arm
+                    turtle1.penup()
+                    turtle1.goto(0,50)
+                    turtle1.pendown()
+                    turtle1.right(45)
+                    turtle1.forward(50)
+                elif total_guesses==5: #draws left arm
+                    turtle1.penup()
+                    turtle1.goto(0,50)
+                    turtle1.pendown()
+                    turtle1.left(90)
+                    turtle1.forward(50)
+                elif total_guesses==4: #draws left leg
+                    turtle1.penup()
+                    turtle1.goto(0,-25)
+                    turtle1.pendown()
+                    turtle1.forward(50)
+                elif total_guesses==3: #draws right leg
+                    turtle1.penup()
+                    turtle1.goto(0,-25)
+                    turtle1.pendown()
+                    turtle1.right(90)
+                    turtle1.forward(50)
+                elif total_guesses==2: #draws eye 1
+                    turtle1.penup()
+                    turtle1.home()
+                    turtle1.goto(10,125)
+                    turtle1.pendown()
+                    turtle1.circle(5)
+                elif total_guesses==1: #draws eye 2
+                    turtle1.penup()
+                    turtle1.home()
+                    turtle1.goto(-10,125)
+                    turtle1.pendown()
+                    turtle1.circle(5)
+                elif total_guesses==0: #draws frown
+                    turtle1.penup()
+                    turtle1.home()
+                    turtle1.goto(10,90)
+                    turtle1.left(90)
+                    turtle1.pendown()
+                    turtle1.circle(15,180)
+                
+        elif "-" not in display:
+            print("You have guessed the word, and the man lives!")
+            play=input("Play again? (Y/N)").lower()
+            turtle1.clear()
+            break #leaves the if clause
+
+    if total_guesses == 0: #runs out of tries
+        print("The man has died because of you! The word was " + word+".")
+        play=input("Play Again? (Y/N)").lower()
+        turtle1.clear() 
+ 
+#6)
+'''After the three days of review and this lab, I feel more confident with my general pythons skills, especially
+with dictionaries and classes. I was seriously rusty and couldn't remember at all
+how dictionaries and classes work. However, now I remember most of the basics. That
+being said, I would still welcome more practice with dictionaries and classes. Some practice exploring 
+their applications and when their usage would be objectively better than "raw code" (because if I'm being honest
+I don't use classes and dictionaries unless I'm explicitly told to do so). I'm 
+also struggling to remember some of the really useful builtin functions of python such as
+.lower or replace(). However I don't think I need in class reviewing for that. This problem is easily solved
+by googling and coding more frequently, which would help me memorize these functions. If possible, I would like to 
+review the concepts learned with data manipulation and analysis, which we learned towards the end of harp 150. 
+I still feel very weak in this department because we have yet to do any in class review or exercises in regards to this.
+I feel like this information would be useful in tangent with harp 151's concepts of web scraping and our final project. '''
